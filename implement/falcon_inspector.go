@@ -2,7 +2,7 @@
 
 package inspector
 
-import "example.com/m/v2/define"
+import "github.com/bai-lu/go-playground/define"
 
 type Config struct {
 	domain string

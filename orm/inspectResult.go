@@ -3,7 +3,7 @@ package orm
 import (
 	"time"
 
-	"example.com/m/v2/define"
+	"github.com/bai-lu/go-playground/define"
 	"gorm.io/gorm"
 )
 

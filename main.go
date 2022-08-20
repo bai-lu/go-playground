@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"example.com/m/v2/tmp"
+	"github.com/bai-lu/go-playground/tmp"
 )
 
 const NewName = "run.wu"
@@ -38,7 +38,7 @@ func (m *Male) setName(name string) {
 }
 
 // 字节的单位转换 保留两位小数
-func formatFileSize(fileSize int64) (size string) {
+func FormatFileSize(fileSize int64) (size string) {
 	if fileSize < 1024 {
 		return fmt.Sprintf("%.2fB", float64(fileSize))
 	} else if fileSize < (1024 * 1024) {
