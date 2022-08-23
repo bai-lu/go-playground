@@ -14,12 +14,12 @@ func TestF(t *testing.T) {
 	F(430)
 }
 
-func TestType1(t *testing.T) {
+func TesType1(t *testing.T) {
 	fmt.Println(Person{Name: "run.wu"})
 
 }
 
-func TestType2(t *testing.T) {
+func TesType2(t *testing.T) {
 	F3()
 
 }

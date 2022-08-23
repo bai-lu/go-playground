@@ -16,6 +16,16 @@ func BenchmarkMarshal(b *testing.B) {
 	}
 }
 
+func TestStringBuilderMarshal(t *testing.T) {
+	stringBuilderfMarshal(Data)
+}
+
+func BenchmarkStringBuilderMarshal(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		stringBuilderfMarshal(Data)
+	}
+}
+
 func BenchmarkFormatMarshal(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		formatMarshal(Data)

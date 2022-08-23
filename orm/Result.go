@@ -3,43 +3,39 @@ package orm
 import (
 	"time"
 
-	"github.com/bai-lu/go-playground/define"
 	"gorm.io/gorm"
 )
 
 var DB = NewDB()
 
-type InspectResult struct {
+type Result struct {
 	gorm.Model // include created_time, updated_time, deleted_time
 
-	PID           int       `gorm:"index;not null"` //  sre tree ID
-	RelatedTags   string    //  关联标签, productionID 下可以包含多个 pdl tags, org, iam 节点, 巡检结果可能包含一个或多个, 因此也需要记录
+	PID           int       `gorm:"column:pid;index;not null"` //  sre tree ID
+	RelatedTags   string    // 关联标签, productionID 下可以包含多个 pdl tags, org, iam 节点, 巡检结果可能包含一个或多个, 因此也需要记录
 	StartTime     time.Time // 巡检开始时间
 	CompletedTime time.Time // 巡检完成时间
 
 	Metrics []Metric // 巡检详细指标及其结果存储
 }
 
-var _ define.InspectResult = &InspectResult{}
-
 // 写表记录
-
-func (res *InspectResult) Save() {
+func (res *Result) Save() {
 	DB.Create(res)
 }
 
 // 读表记录
-func (res *InspectResult) Load(PID int) {
+func (res *Result) Load(PID int) {
 	DB.Select(PID)
 }
 
 // 根据类型获取对应巡检的数量
-func (res *InspectResult) Count(ttype string) int {
+func (res *Result) Count(Type string) int {
 	return 0
 }
 
 // 获取本次巡检结果中错误级别巡检指标的数量
-func (res *InspectResult) ErrorCount() int {
+func (res *Result) ErrorCount() int {
 	count := 0
 	for _, metric := range res.Metrics {
 		if metric.IsError() {
@@ -50,7 +46,7 @@ func (res *InspectResult) ErrorCount() int {
 }
 
 // 获取本次巡检结果中错误级别巡检指标的数量
-func (res *InspectResult) NormalCount() int {
+func (res *Result) NormalCount() int {
 	count := 0
 	for _, metric := range res.Metrics {
 		if metric.IsNormal() {
@@ -61,7 +57,7 @@ func (res *InspectResult) NormalCount() int {
 }
 
 // 获取本次巡检结果中错误级别巡检指标的数量
-func (res *InspectResult) WarnCount() int {
+func (res *Result) WarnCount() int {
 	count := 0
 	for _, metric := range res.Metrics {
 		if metric.IsWarn() {

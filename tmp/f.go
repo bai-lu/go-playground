@@ -46,3 +46,28 @@ func F(a int) {
 		fmt.Print("default")
 	}
 }
+
+func PrintMap(d map[string]interface{}) {
+
+	for k, v := range d {
+		//fmt.Printf("--- KeyType: %T, Value-Type: %T, Key: %v, Value: %v\n",k, v, k, v)
+		switch k {
+		case "cname_tag":
+			fmt.Printf("111 KeyType: %T, Value-Type: %T, Key: %v, Value: %v\n", k, v, k, v)
+
+		case "children":
+			//fmt.Printf("222 KeyType: %T, Value-Type: %T, Key: %v, Value: %v\n",k, v, k, v)
+
+			switch v.(type) {
+			case []interface{}:
+				fmt.Printf("333 KeyType: %T, Value-Type: %T, Key: %v\n", k, v, k)
+				//for _, nv := range v {
+				//	fmt.Printf("%v, %v \n", nv, nv)
+				//}
+			default:
+				fmt.Printf("444 KeyType: %T, Value-Type: %T, Key: %v\n", k, v, k)
+				//fmt.Printf("444 KeyType: %T, Value-Type: %T, Key: %v, Value: %v\n",k, v, k, v)
+			}
+		}
+	}
+}

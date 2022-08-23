@@ -16,17 +16,24 @@ func initData() [1000]float64 {
 		data[i] = rand.Float64()
 	}
 	return data
-
 }
 
 // float64 to string 精度丢失
-
 func sprintfMarshal(data [1000]float64) string {
 	var s string
 	for i := 0; i < len(data); i++ {
 		s += fmt.Sprintf("%f,", data[i])
 	}
 	return s
+}
+
+func stringBuilderfMarshal(data [1000]float64) string {
+	var s []string = make([]string, len(data))
+	for i := 0; i < len(data); i++ {
+		s[i] = fmt.Sprintf("%f,", data[i])
+	}
+	res := strings.Join(s, ",")
+	return res
 }
 
 func formatMarshal(data [1000]float64) string {

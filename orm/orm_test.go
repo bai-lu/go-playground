@@ -12,12 +12,8 @@ func TestCreateTable(t *testing.T) {
 	DB.AutoMigrate(&Metric{})
 }
 
-func TestCreateInspectResult(t *testing.T) {
-	DB.AutoMigrate(&InspectResult{})
-}
-
-func TestCreateUser(t *testing.T) {
-	DB.AutoMigrate(&User{})
+func TestCreateResult(t *testing.T) {
+	DB.AutoMigrate(&Result{})
 }
 
 func TestInsertMetric(t *testing.T) {
@@ -26,7 +22,8 @@ func TestInsertMetric(t *testing.T) {
 	// t.Log(len(md5.Sum(values)))
 	DB.Create(&Metric{
 		UUID:           fmt.Sprintf("%x", md5.Sum(values)),
-		Ttype:          "os",
+		CreatedAt:      time.Now(),
+		Type:           "os",
 		Endpoint:       "c3-mc-sre00.bj",
 		Metric:         "cpu.busy",
 		Label:          "",
@@ -40,11 +37,12 @@ func TestInsertMetric(t *testing.T) {
 
 }
 
-func TestInsertInspectResult(t *testing.T) {
+func TestInsertResult(t *testing.T) {
 	values, _ := json.Marshal(initData())
 	metric := Metric{
 		UUID:           fmt.Sprintf("%x", md5.Sum(values)),
-		Ttype:          "os",
+		CreatedAt:      time.Now(),
+		Type:           "os",
 		Endpoint:       "c3-mc-sre00.bj",
 		Metric:         "cpu.busy",
 		Label:          "",
@@ -55,7 +53,7 @@ func TestInsertInspectResult(t *testing.T) {
 		StartTimeStamp: time.Now().Unix() - 86400*3,
 		EndTimeStamp:   time.Now().Unix(),
 	}
-	DB.Create(&InspectResult{
+	DB.Create(&Result{
 		PID:           0,
 		RelatedTags:   "test",
 		StartTime:     time.Now(),
@@ -65,7 +63,7 @@ func TestInsertInspectResult(t *testing.T) {
 }
 
 func TestSelectInspectResult(t *testing.T) {
-	var results []InspectResult
+	var results []Result
 	// DB.Find(&results)
 	DB.Preload("Metrics").Find(&results)
 	for _, result := range results {

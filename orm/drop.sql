@@ -1,1 +1,1 @@
-drop table metrics;
+drop TABLE results;

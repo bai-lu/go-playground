@@ -1,17 +1,16 @@
 package orm
 
 import (
-	"github.com/bai-lu/go-playground/define"
-	"gorm.io/gorm"
+	"time"
 )
 
 // 巡检结果基本单位
 type Metric struct {
-	gorm.Model
-	UUID            string // 经过 hash 散列生成 uuid
-	InspectResultID uint   //  结果表ID, 作为外键
+	UUID      string `gorm:"primarykey"` // 经过 hash 散列生成 uuid
+	CreatedAt time.Time
+	ResultID  uint //  结果表ID, 作为外键
 
-	Ttype    string // os | cert | lvs | l7 | horus
+	Type     string // os | cert | lvs | l7 | horus
 	Endpoint string
 	Metric   string
 	Label    string
@@ -25,48 +24,44 @@ type Metric struct {
 	Threshold      float64 // 因为策略是可以调整的, 因此巡检结果的阈值也需要保存
 	StartTimeStamp int64   // 第一个超过阈值的点的时间戳, 用于前端绘图复现
 	EndTimeStamp   int64   // 最后一个超过阈值的点的时间戳
-
 }
-
-// 确保Metric实现了define.Metric接口
-var _ define.Metric = &Metric{}
 
 func NewMetric() *Metric {
 	return &Metric{}
 }
 
-func (Metric *Metric) GetUUID() string {
-	return Metric.UUID
+func (metric *Metric) GetUUID() string {
+	return metric.UUID
 }
 
-func (Metric *Metric) TimeRange() (uint, uint, error) {
-	return 0, 0, nil
+func (metric *Metric) TimeRange() (int64, int64, error) {
+	return metric.StartTimeStamp, metric.EndTimeStamp, nil
 }
 
-func (Metric *Metric) String() string {
+func (metric *Metric) String() string {
 	return ""
 }
 
-func (Metric *Metric) IsError() bool {
+func (metric *Metric) IsError() bool {
 	return true
 }
 
-func (Metric *Metric) IsWarn() bool {
+func (metric *Metric) IsWarn() bool {
 	return true
 }
 
-func (Metric *Metric) IsNormal() bool {
+func (metric *Metric) IsNormal() bool {
 	return true
 }
 
-func (Metric *Metric) Max() float64 {
+func (metric *Metric) Max() float64 {
 	return 0
 }
 
-func (Metric *Metric) Min() float64 {
+func (metric *Metric) Min() float64 {
 	return 0
 }
 
-func (Metric *Metric) Avg() float64 {
+func (metric *Metric) Avg() float64 {
 	return 0
 }
