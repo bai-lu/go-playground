@@ -1,0 +1,17 @@
+[
+    {
+        "endpoint": "c3-mc-sre00.bj",
+        "metric": "cpu.busy",
+        "avg": 20
+    },
+    {
+        "endpoint": "c3-mc-sre01.bj",
+        "metric": "cpu.busy",
+        "avg": 70
+    },
+    {
+        "endpoint": "c3-mc-sre02.bj",
+        "metric": "cpu.busy",
+        "avg": 95
+    }
+]

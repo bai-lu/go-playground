@@ -1,0 +1,1 @@
+http://10.189.113.90:4000/grafana/api/query
