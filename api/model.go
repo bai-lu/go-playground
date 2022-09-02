@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"time"
 )
@@ -91,7 +91,7 @@ func LoadFeedJson() interface{} {
 	if err != nil {
 		panic(err)
 	}
-	fileContext, err := ioutil.ReadAll(fd)
+	fileContext, err := io.ReadAll(fd)
 	if err != nil {
 		panic(err)
 	}
