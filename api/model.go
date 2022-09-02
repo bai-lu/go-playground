@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"time"
 )
@@ -16,22 +16,32 @@ type Metric struct {
 }
 
 type MachineMetric struct {
-	Endpoint  string `json:"endpoint"`
-	Metric    string `json:"metric"`
-	StartTime string `json:"start_time"`
-	EndTime   string `json:"end_time"`
-	Avg       int    `json:"avg"`
+	Endpoint  string  `json:"endpoint"`
+	Metric    string  `json:"metric"`
+	StartTime int64   `json:"from"`
+	EndTime   int64   `json:"to"`
+	Avg       float64 `json:"avg"`
 }
+
+// 1. statistic
+// 2.
 
 func NewMachineData() []MachineMetric {
 	var MachineData []MachineMetric
 	for i := 0; i < 100; i++ {
+		// tmp := MachineMetric{
+		// 	Endpoint:  fmt.Sprintf("c3-mc-sre%02d.bj", i),
+		// 	Metric:    "cpu.busy",
+		// 	StartTime: time.Now().Format("2006-01-02T15:04:05"),
+		// 	EndTime:   time.Now().Format("2006-01-02T15:04:05"),
+		// 	Avg:       i,
+		// }
 		tmp := MachineMetric{
 			Endpoint:  fmt.Sprintf("c3-mc-sre%02d.bj", i),
 			Metric:    "cpu.busy",
-			StartTime: time.Now().Format("2006-01-02T15:04:05"),
-			EndTime:   time.Now().Format("2006-01-02T15:04:05"),
-			Avg:       i,
+			StartTime: time.Now().UnixMilli(),
+			EndTime:   time.Now().UnixMilli(),
+			Avg:       float64(i),
 		}
 		MachineData = append(MachineData, tmp)
 
@@ -81,7 +91,7 @@ func LoadFeedJson() interface{} {
 	if err != nil {
 		panic(err)
 	}
-	fileContext, err := ioutil.ReadAll(fd)
+	fileContext, err := io.ReadAll(fd)
 	if err != nil {
 		panic(err)
 	}
