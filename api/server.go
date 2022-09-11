@@ -49,7 +49,6 @@ func RegisterApi(m *macaron.Macaron) {
 
 	// POST /query to return panel data or annotations.
 	m.Get("/query", binding.Bind(PostData{}), Query)
-
 }
 
 func Search() string {
