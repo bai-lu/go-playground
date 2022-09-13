@@ -9,7 +9,7 @@ import (
 )
 
 func TestCreateTable(t *testing.T) {
-	DB.AutoMigrate(&Metric{})
+	DB.AutoMigrate(&Metric{}, &Result{})
 }
 
 func TestCreateResult(t *testing.T) {

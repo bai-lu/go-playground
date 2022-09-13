@@ -1,3 +1,3 @@
 # go-playground
 
-golang学习及项目过程的snippets111
+golang学习及项目过程的snippets
