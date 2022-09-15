@@ -13,3 +13,7 @@ func TestHttpWithClose(t *testing.T) {
 func TestHttpWithoutClose(t *testing.T) {
 	HttpWithoutClose()
 }
+
+func TestRead(t *testing.T) {
+	Read()
+}
