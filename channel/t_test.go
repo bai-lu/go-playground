@@ -7,12 +7,24 @@ import (
 	"time"
 )
 
-var numCPU = runtime.GOMAXPROCS(0)
-var numCPU1 = runtime.NumCPU()
+var NumCPU = runtime.GOMAXPROCS(2)
+var NumCPU1 = runtime.NumCPU()
 
+func TestNumCPU(t *testing.T) {
+	var NumCPU = runtime.GOMAXPROCS(2)
+	t.Log(NumCPU)
+	t.Log(NumCPU1)
+
+}
+
+// 测试无缓冲 channal
 func TestServer(t *testing.T) {
-	t.Log(numCPU)
-	t.Log(numCPU1)
+	ch := make(chan *Request, 100)
+	quit := make(chan bool)
+	go Serve(ch, quit)
+	time.Sleep(time.Second)
+	quit <- true
+	time.Sleep(time.Second)
 }
 
 func TestSeq(t *testing.T) {
@@ -31,4 +43,12 @@ func TestSeq(t *testing.T) {
 	}()
 	time.Sleep(1 * time.Second)
 	fmt.Println(a)
+}
+
+func TestF1(t *testing.T) {
+	F1()
+}
+
+func TestF2(t *testing.T) {
+	F2()
 }

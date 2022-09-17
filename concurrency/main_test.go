@@ -12,3 +12,7 @@ func TestSay(t *testing.T) {
 	Say("hello")
 
 }
+
+func TestCutSlice(t *testing.T) {
+	CutSlice()
+}
