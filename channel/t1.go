@@ -1,68 +1,38 @@
 package channel
 
 import (
+	"context"
 	"fmt"
-	"sync"
+
+	"golang.org/x/sync/errgroup"
 )
 
-const MaxOutstanding = 100
-
-type Request struct {
-	name string
-}
-
-func process(r *Request) {
-	// 处理请求
-	fmt.Println(r.name)
-}
-
-func handle(queue chan *Request) {
-	for r := range queue {
-		process(r)
-	}
-}
-
-func Serve(clientRequests chan *Request, quit chan bool) {
-	// 启动处理程序
-	for i := 0; i < MaxOutstanding; i++ {
-		go handle(clientRequests)
-	}
-	<-quit // 等待通知退出。
-	print("exiting")
-}
-
 func F1() {
+	// sync.Map{}
 	num := 100
-
-	var wg sync.WaitGroup
-	wg.Add(num)
-
+	var a []int
+	wg, _ := errgroup.WithContext(context.Background())
 	c := make(chan int) // channel 无限长?
 	for i := 0; i < num; i++ {
 		k := i
-		go func() {
+		wg.Go(func() error {
 			c <- k // channl是协程安全的, 为什么不阻塞
-			c <- 999
-			wg.Done()
-		}()
+			return nil
+		})
 	}
-
-	// 等待关闭channel
 	go func() {
-		wg.Wait()
-		close(c)
+		// 读取数据
+		for i := range c {
+			fmt.Println(i)
+			a = append(a, i)
+		}
+		println("closed")
 	}()
-	// c <- 999
-
-	// 读取数据
-	var a []int
-	for i := range c {
-		fmt.Println(i)
-		a = append(a, i)
-	}
-
-	fmt.Println(len(c))
-	fmt.Println(len(a))
+	wg.Wait()
+	close(c)
+	// time.Sleep(1 * 1e9)
+	fmt.Println("channal len", len(c))
+	// fmt.Println("array len", len(a))
 }
 
 func F2() {

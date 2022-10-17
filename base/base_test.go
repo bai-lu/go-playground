@@ -6,8 +6,7 @@ import (
 )
 
 func TestRune(t *testing.T) {
-	Rune()
-
+	RuneA()
 }
 
 func TestSizeof(t *testing.T) {
@@ -22,5 +21,18 @@ func TestTmp(t *testing.T) {
 	b := a << 63
 	fmt.Println(b)
 	fmt.Printf("%T", b)
+}
 
+func TestRuneA(t *testing.T) {
+	tests := []struct {
+		name string
+	}{
+		// TODO: Add test cases.
+		{"TestRuneA"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			RuneA()
+		})
+	}
 }

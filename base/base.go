@@ -5,7 +5,7 @@ import (
 	"unsafe"
 )
 
-func Rune() {
+func RuneA() {
 	var a int = 1 // 默认64位 大部分情况
 	var b int8 = 2
 	var c int16 = 3
@@ -22,12 +22,13 @@ func Rune() {
 	var aa uint = 1
 
 	aa = uint(a)
-	m := aa << 62
+	m := aa << 60
 	n := m << 1
 	l := n << 1
-	fmt.Println(m, n, l)
+	r := rune(l)
+	fmt.Println(m, n, l, r)
 
-	bb := *(*[]int)(unsafe.Pointer(&a))
+	bb := *(*int)(unsafe.Pointer(&a))
 	fmt.Println(bb)
 
 }
