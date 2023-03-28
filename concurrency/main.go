@@ -6,26 +6,26 @@ import (
 	"time"
 )
 
-func F1() {
-	var lock sync.Mutex
-	lock.Lock()
+var lock1 sync.Mutex
+var lock2 sync.Mutex
+
+var nums = []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+var chars = []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"}
+
+func printNum() {
+	for _, num := range nums {
+		lock2.Lock()
+		fmt.Println(num)
+		lock1.Unlock()
+		time.Sleep(time.Second)
+	}
 }
 
-var Task = map[string]bool{
-	"task1": true,
-	"task2": false,
-}
-
-func TaskManager() {
-	go func() {
-		Task["task1"] = true
-	}()
-	// 后面的goruotine
-	go func() {
-		Task["task1"] = false
-	}()
-
-	time.Sleep(time.Second)
-	fmt.Println(Task)
-
+func printChar() {
+	for _, char := range chars {
+		lock1.Lock()
+		fmt.Println(char)
+		lock2.Unlock()
+		time.Sleep(time.Second)
+	}
 }

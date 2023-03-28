@@ -1,3 +1,3 @@
 # go-playground
 
-golang学习及项目过程的snippets
+golang学习过程的代码片段记录
