@@ -1,4 +1,4 @@
-module github.com/bai-lu/go-playground
+module pg
 
 go 1.18
 
