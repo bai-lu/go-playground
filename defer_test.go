@@ -16,5 +16,4 @@ func TestDefer(t *testing.T) {
 		}()
 		fmt.Println(i)
 	}
-	return
 }
