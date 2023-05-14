@@ -1,3 +1,5 @@
+// 交替打印数字和字符
+
 package main
 
 import (
